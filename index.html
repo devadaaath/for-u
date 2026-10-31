@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>നിനക്കായി 💌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@500;700&family=Manjari:wght@400;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#4a2338; --rose:#ff7aa8; --peach:#ffb48a; --lilac:#b79cff; --sun:#ffd35c;
+  --glass:rgba(255,255,255,.22); --edge:rgba(255,255,255,.65);
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:'Manjari','Baloo Chettan 2',sans-serif;color:var(--ink);overflow-x:hidden;
+  background:linear-gradient(160deg,#ffd9e6,#ffe9d6 45%,#e3d6ff);min-height:100svh;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+/* liquid blobs */
+.blob{position:fixed;border-radius:50%;filter:blur(40px);opacity:.75;z-index:0;animation:drift 18s ease-in-out infinite alternate}
+.b1{width:48vmax;height:48vmax;background:var(--rose);top:-12vmax;left:-10vmax}
+.b2{width:42vmax;height:42vmax;background:var(--sun);bottom:-10vmax;right:-8vmax;animation-delay:-6s}
+.b3{width:34vmax;height:34vmax;background:var(--lilac);top:35%;left:45%;animation-delay:-11s}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.2) rotate(40deg)}}
+canvas{position:fixed;inset:0;z-index:1;pointer-events:none}
+main{position:relative;z-index:2;max-width:560px;margin:0 auto;padding:20px 16px 60px}
+.glass{
+  background:linear-gradient(135deg,rgba(255,255,255,.42),rgba(255,255,255,.12));
+  backdrop-filter:blur(22px) saturate(1.8);-webkit-backdrop-filter:blur(22px) saturate(1.8);
+  border:1.5px solid var(--edge);border-radius:34px;
+  box-shadow:0 18px 50px rgba(150,60,110,.22),inset 0 2px 2px rgba(255,255,255,.9),inset 0 -10px 24px rgba(255,255,255,.15);
+  position:relative;overflow:hidden}
+.glass::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 60% at 20% -10%,rgba(255,255,255,.7),transparent 55%);pointer-events:none}
+section{display:none}
+section.on{display:block;animation:pop .8s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{opacity:0;transform:translateY(30px) scale(.9)}}
+h1,h2{font-family:'Baloo Chettan 2',sans-serif;font-weight:700;line-height:1.35;text-align:center}
+h1{font-size:2rem}h2{font-size:1.5rem}
+.card{padding:28px 22px;margin-top:18px;text-align:center}
+.sub{font-family:'Fredoka',sans-serif;opacity:.75;margin-top:6px}
+.btn{font:600 1.1rem 'Baloo Chettan 2',sans-serif;color:#fff;border:1.5px solid rgba(255,255,255,.8);cursor:pointer;
+  padding:13px 28px;border-radius:99px;margin-top:20px;
+  background:linear-gradient(135deg,rgba(255,110,160,.9),rgba(255,150,120,.85));
+  box-shadow:0 10px 24px rgba(255,90,140,.4),inset 0 2px 3px rgba(255,255,255,.7);transition:transform .2s}
+.btn:hover{transform:scale(1.07)}.btn:active{transform:scale(.95)}
+.btn.ghost{background:var(--glass);color:var(--ink);box-shadow:inset 0 2px 3px rgba(255,255,255,.7)}
+.cat{width:min(300px,78vw);display:block;margin:10px auto 0;cursor:pointer;filter:drop-shadow(0 14px 18px rgba(120,40,80,.28));
+  animation:bob 3.2s ease-in-out infinite;-webkit-tap-highlight-color:transparent;user-select:none}
+@keyframes bob{50%{transform:translateY(-12px) rotate(-1.5deg)}}
+.cat.hop{animation:hop .6s}
+@keyframes hop{40%{transform:translateY(-40px) scale(1.08,.94)}}
+/* envelope */
+.env{width:150px;height:104px;margin:26px auto 4px;position:relative;cursor:pointer;animation:bob 2.6s ease-in-out infinite}
+.env i{position:absolute;inset:0;border-radius:14px;background:linear-gradient(135deg,#fff,#ffd0e0);box-shadow:0 12px 30px rgba(200,60,110,.35)}
+.env b{position:absolute;left:0;right:0;top:0;height:60px;background:#ffc2d8;clip-path:polygon(0 0,100% 0,50% 100%);border-radius:14px 14px 0 0}
+.env span{position:absolute;left:50%;top:38px;transform:translateX(-50%);font-size:34px;filter:drop-shadow(0 3px 4px rgba(200,0,70,.4))}
+/* letter */
+.letter{padding:30px 24px;text-align:left;font-size:1.22rem;line-height:2.05;min-height:280px}
+.letter .to{font-family:'Baloo Chettan 2';font-weight:700;font-size:1.4rem}
+#txt{white-space:pre-wrap}
+.caret{display:inline-block;width:2px;height:1.1em;background:var(--rose);vertical-align:middle;animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+/* gallery */
+.gal{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 14px;scrollbar-width:none}
+.gal::-webkit-scrollbar{display:none}
+.slide{flex:0 0 86%;scroll-snap-align:center;padding:18px 12px 20px;text-align:center}
+.slide img{width:78%;max-width:260px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.18));animation:bob 3.6s ease-in-out infinite}
+.slide p{font-size:1.1rem;margin-top:8px;line-height:1.6}
+.dots{display:flex;gap:7px;justify-content:center}.dots u{width:8px;height:8px;border-radius:9px;background:rgba(255,255,255,.7);transition:.3s}.dots u.on{width:24px;background:var(--rose)}
+/* ask */
+.ask{min-height:230px;position:relative}
+.hint{font:500 .9rem 'Fredoka',sans-serif;opacity:.6;margin-top:22px;text-align:center}
+.final{display:none;text-align:center}
+.final.on{display:block;animation:pop .9s cubic-bezier(.2,1.4,.4,1)}
+.trio{display:flex;justify-content:center;gap:0;margin-top:10px}
+.trio img{width:34%;animation:bob 2.8s ease-in-out infinite}.trio img:nth-child(2){animation-delay:-.9s;transform:translateY(-14px)}.trio img:nth-child(3){animation-delay:-1.8s}
+.tabs{position:fixed;z-index:5;right:14px;top:calc(14px + env(safe-area-inset-top));padding:8px 14px;font:600 .9rem 'Fredoka';border-radius:99px;cursor:pointer;color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,40px);opacity:0;z-index:9;padding:12px 20px;border-radius:99px;transition:.5s;font-size:1rem;text-align:center;max-width:90vw}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<canvas id="fx"></canvas>
+<div class="tabs glass" id="replay" style="display:none">↻ വീണ്ടും</div>
+
+<main>
+<!-- 1. gate -->
+<section id="s0" class="on">
+  <div class="glass card" style="margin-top:8vh">
+    <h1>നിനക്കൊരു<br>സർപ്രൈസ് ഉണ്ട് 💗</h1>
+    <p class="sub">ഒന്ന് തൊട്ടുനോക്കൂ…</p>
+    <div class="env" id="env"><i></i><b></b><span>💌</span></div>
+    <p class="hint">കവർ തൊടൂ</p>
+  </div>
+</section>
+
+<!-- 2. cat + sunflowers -->
+<section id="s1">
+  <div class="glass card">
+    <h2 id="hi"></h2>
+    <img class="cat" id="cat" src="img/sun.png" alt="Cat with sunflowers">
+    <p class="sub" id="catSub">പൂച്ചക്കുട്ടിയെ ഒന്ന് തൊട്ടുനോക്കൂ 🐾</p>
+    <button class="btn" data-go="2">കത്ത് തുറക്കാം 💌</button>
+  </div>
+</section>
+
+<!-- 3. letter -->
+<section id="s2">
+  <div class="glass letter">
+    <div class="to" id="to"></div>
+    <div id="txt"></div><span class="caret"></span>
+  </div>
+  <div style="text-align:center"><button class="btn" id="nextL" data-go="3" style="display:none">കൂടുതൽ പൂക്കൾ 🌸</button></div>
+</section>
+
+<!-- 4. gallery -->
+<section id="s3">
+  <h2 style="margin:10px 0 14px">ഓരോ പൂവിനും ഒരു കഥ 🌷</h2>
+  <div class="gal" id="gal">
+    <div class="glass slide"><img src="img/pink.png" alt=""><p>പിങ്ക് പൂക്കൾ —<br>നിന്റെ മധുരമായ ചിരിക്ക് 🌸</p></div>
+    <div class="glass slide"><img src="img/rose.png" alt=""><p>ചുവന്ന റോസുകൾ —<br>എന്റെ ഹൃദയത്തിന്റെ നിറം ❤️</p></div>
+    <div class="glass slide"><img src="img/sun.png" alt=""><p>സൂര്യകാന്തി —<br>എന്റെ ഇരുട്ടിലെ വെളിച്ചം 🌻</p></div>
+  </div>
+  <div class="dots" id="dots"><u class="on"></u><u></u><u></u></div>
+  <div style="text-align:center"><button class="btn" data-go="4">ഒരു ചോദ്യം കൂടി… 🥺</button></div>
+</section>
+
+<!-- 5. question -->
+<section id="s4">
+  <div class="glass card ask" id="ask">
+    <h2>എന്നും എന്റെ കൂടെ<br>ഉണ്ടാകുമോ? 💞</h2>
+    <img class="cat" src="img/rose.png" style="width:min(200px,50vw)" alt="">
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;height:70px">
+      <button class="btn" id="yes">ഉണ്ടാകും 💖</button>
+      <button class="btn ghost" id="no">ഇല്ല</button>
+    </div>
+    <p class="hint">(“ഇല്ല” പിടിക്കാൻ ഒന്ന് നോക്കൂ 😼)</p>
+  </div>
+  <div class="glass card final" id="final">
+    <h1>ഞാൻ ഹാപ്പി! 🥰</h1>
+    <div class="trio"><img src="img/pink.png" alt=""><img src="img/rose.png" alt=""><img src="img/sun.png" alt=""></div>
+    <p style="font-size:1.2rem;line-height:1.9;margin-top:14px" id="fin"></p>
+    <p class="sub">പൂച്ചയെ 5 തവണ തൊട്ടാൽ ഒരു പൂമഴ പെയ്യും 🌸</p>
+  </div>
+</section>
+</main>
+<div class="toast glass" id="toast"></div>
+
+<script>
+/* ======= ഇവിടെ നിന്റെ കാര്യങ്ങൾ മാറ്റിയെഴുതൂ / EDIT HERE ======= */
+const CONFIG = {
+  hi: "ഹായ് എന്റെ ജീവനേ! 🌻",
+  to: "എന്റെ ജീവനേ,",
+  letter:
+`ഈ കത്ത് എഴുതുമ്പോൾ എന്റെ ഹൃദയം ചെറുതായി വിറയ്ക്കുന്നുണ്ട്.
+
+നീ എന്റെ ജീവിതത്തിലേക്ക് വന്ന ദിവസം മുതൽ ഓരോ ദിവസവും ഒരു പൂന്തോട്ടം പോലെ പൂത്തു നിൽക്കുകയാണ്.
+നിന്റെ ചിരി കാണുമ്പോൾ എന്റെ എല്ലാ വിഷമങ്ങളും മാഞ്ഞുപോകും.
+
+ഈ കുഞ്ഞിപ്പൂച്ച നിനക്കായി കുറച്ചു പൂക്കൾ കൊണ്ടുവന്നിട്ടുണ്ട്. എത്ര പൂക്കൾ തന്നാലും നിന്നോടുള്ള എന്റെ സ്നേഹത്തിന്റെ ഒരു തരി പോലും പറഞ്ഞു തീരില്ല.
+
+എന്നും നിന്റെ കൂടെ ഉണ്ടാകും, എന്നും നിന്നെ സ്നേഹിക്കും. 💗
+
+എന്ന്,
+നിന്റെ സ്വന്തം ❤️`,
+  final: "ഈ ലോകത്തിലെ ഏറ്റവും നല്ല മറുപടി!\nഎന്റെ ഹൃദയം നിറഞ്ഞു. ഐ ലവ് യു, എന്നും. 💕",
+  secrets: ["നീ എന്റെ ഭാഗ്യമാണ് 🍀","മ്യാവൂ… എനിക്കും നിന്നെ ഇഷ്ടം 🐱","ഒരു ഉമ്മ! 😘","നീ ചിരിക്കുമ്പോൾ പൂക്കൾ നാണിക്കും 🌸","ഇനി ഒരു പൂമഴ… 🌺"]
+};
+/* ================================================================ */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+$('#hi').textContent=CONFIG.hi; $('#to').textContent=CONFIG.to; $('#fin').textContent=CONFIG.final;
+
+/* petals / hearts canvas */
+const cv=$('#fx'),cx=cv.getContext('2d');let W,H,P=[];
+function rs(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio}rs();addEventListener('resize',rs);
+const EM=['🌸','🌻','🌷','💗','✨','🌹','💕'];
+function spawn(x,y,burst){const d=devicePixelRatio;P.push({x:x*d,y:y*d,e:EM[Math.random()*EM.length|0],s:(14+Math.random()*18)*d,
+  vx:(burst?(Math.random()-.5)*14:(Math.random()-.5)*1.2)*d,vy:(burst?-Math.random()*12-2:Math.random()*1.4+.6)*d,r:Math.random()*6,vr:(Math.random()-.5)*.1,l:burst?110:1e9})}
+function tick(){cx.clearRect(0,0,W,H);
+  if(Math.random()<.05)spawn(Math.random()*innerWidth,-20);
+  P=P.filter(p=>p.y<H+60&&p.l>0);
+  for(const p of P){p.x+=p.vx+Math.sin(p.y/60)*.5;p.y+=p.vy;p.vy+=(p.l<1e9?.25*devicePixelRatio:0);p.r+=p.vr;p.l--;
+    cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.globalAlpha=Math.min(1,p.l/30);cx.font=p.s+'px serif';cx.fillText(p.e,0,0);cx.restore()}
+  requestAnimationFrame(tick)}tick();
+const burst=(x,y,n=22)=>{for(let i=0;i<n;i++)spawn(x,y,true)};
+const rain=()=>{for(let i=0;i<70;i++)setTimeout(()=>spawn(Math.random()*innerWidth,-30),i*45)};
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2400)}
+
+/* flow */
+function go(n){$$('section').forEach(s=>s.classList.remove('on'));$('#s'+n).classList.add('on');scrollTo(0,0);
+  $('#replay').style.display=n?'block':'none';if(n==2)type()}
+$$('[data-go]').forEach(b=>b.onclick=e=>{burst(e.clientX,e.clientY,14);go(+b.dataset.go)});
+$('#env').onclick=e=>{burst(e.clientX,e.clientY,30);setTimeout(()=>{go(1);rain()},350)};
+$('#replay').onclick=()=>{ty&&clearTimeout(ty);go(0)};
+
+/* cat taps */
+let taps=0;
+$('#cat').onclick=e=>{const c=e.currentTarget;c.classList.remove('hop');void c.offsetWidth;c.classList.add('hop');burst(e.clientX,e.clientY,16);
+  toast(CONFIG.secrets[taps%CONFIG.secrets.length]);taps++;if(taps%5==0)rain()};
+document.addEventListener('click',e=>{if(e.target.closest('#s4 .cat')){taps++;burst(e.clientX,e.clientY,12);if(taps%5==0){rain();toast(CONFIG.secrets[4])}}});
+
+/* typewriter */
+let ty;function type(){clearTimeout(ty);const t=$('#txt'),L=[...CONFIG.letter];let i=0;t.textContent='';$('#nextL').style.display='none';
+  (function step(){if(i<L.length){t.textContent+=L[i++];ty=setTimeout(step,/[.\n]/.test(L[i-1])?260:55)}else{$('#nextL').style.display='inline-block';$('.caret').style.display='none';rain()}})();
+  $('.caret').style.display='inline-block'}
+$('#s2 .letter').onclick=()=>{clearTimeout(ty);$('#txt').textContent=CONFIG.letter;$('#nextL').style.display='inline-block'};
+
+/* gallery dots */
+const gal=$('#gal');gal.addEventListener('scroll',()=>{const i=Math.round(gal.scrollLeft/(gal.scrollWidth/3));$$('#dots u').forEach((d,k)=>d.classList.toggle('on',k==i))});
+
+/* question */
+const no=$('#no');let moved=0;
+function run(e){e&&e.preventDefault();const a=$('#ask').getBoundingClientRect(),b=no.getBoundingClientRect();
+  no.style.position='fixed';const x=Math.random()*(innerWidth-b.width-30)+15,y=Math.random()*(innerHeight-b.height-30)+15;
+  no.style.left=x+'px';no.style.top=y+'px';moved++;no.textContent=['ഇല്ല','ശരിക്കും? 🥺','പ്ലീസ്…','ഹ ഹ പിടിക്കാൻ പറ്റില്ല 😹'][Math.min(moved,3)]}
+no.addEventListener('mouseover',run);no.addEventListener('touchstart',run,{passive:false});no.addEventListener('click',run);
+$('#yes').onclick=e=>{$('#ask').style.display='none';$('#final').classList.add('on');burst(innerWidth/2,innerHeight/2,60);rain();setTimeout(rain,1800);
+  $$('#final .trio img').forEach(i=>i.onclick=ev=>burst(ev.clientX,ev.clientY,20))};
+</script>
+</body>
+</html>
